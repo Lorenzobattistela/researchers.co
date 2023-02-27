@@ -27,7 +27,8 @@ function formatResponse(response) {
 
 function formatPrompt(profileData) {
 
-    let text_prompt = `Recomende três universidades para essa pessoa com base no texto abaixo. Na resposta, retorne um objeto JSON válido, de formato {"nome da universidade": "motivo de escolha"}.\n Texto: '
+    let text_prompt = `Recomende duas universidades para essa pessoa com base no texto abaixo. As universidades podem ser públicas ou privadas. Na resposta, retorne apenas um objeto JSON válido. Não coloque nenhum caractere nem espaços em branco além do JSON. O formato do JSON é:
+    {"nome da universidade 1": "motivo de escolha", "nome da universidade 2": motivo de escolha"}\nO motivo de escolha deve ser bem detalhado. Nunca repita os motivos de escolha. Destaque as qualidades de cada universidade acerca dos interesses e áreas de pesquisa apresentados no texto.\n Texto: '
     `
     if(profileData["faculdade"]) {
         text_prompt += `Faço faculdade de ${profileData["faculdade"]}.\n`
@@ -41,7 +42,7 @@ function formatPrompt(profileData) {
     if(profileData["realocação"]) {
         text_prompt += `Hoje moro no estado ${profileData["estado"]} e tenho possibilidade de realocação. Meu orçamento mensal é de ${profileData["orcamento"]} reais`;
     }
-    else {
+    else { 
         text_prompt += `Hoje moro no estado ${profileData["estado"]} e não tenho possibilidade de realocação. Meu orçamento mensal é de ${profileData["orcamento"]} reais.'`;
     }
     return text_prompt;
