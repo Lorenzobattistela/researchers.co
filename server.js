@@ -4,10 +4,14 @@ const db = require('./database');
 const model = require('./model');
 const methods = require("./methods");
 const app = express(); // Creating an express object
+const cors = require('cors');
   
 const port = 8000;  // Setting an port for this application
 const bodyParser = require("body-parser");
 
+app.use(cors({
+    origin: '*'
+}))
 app.use(bodyParser.json());
 
 // Starting server using listen function
