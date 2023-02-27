@@ -9,6 +9,7 @@ const credentials  = {
     port: process.env.DATABASE_PORT || 5432,
 };
 
+let connected = false;
 const client = new Client(credentials);
 
 module.exports.clientDemo = async function() {
@@ -22,14 +23,16 @@ module.exports.clientDemo = async function() {
 
 module.exports.getUniversities = async function (rows=100) {
     try {
-        await client.connect()
+        if(!connected) {
+            await client.connect();
+        }
         const query = `SELECT * FROM universities LIMIT $1;`
         const values = [rows];
         let results = await client.query(query, values);
-        await client.end();
         return results;
     }
     catch(e) {
+        await client.end();
         console.log(e);
         return false;
     }
